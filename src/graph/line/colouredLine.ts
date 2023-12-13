@@ -1,6 +1,5 @@
 import Line from "./line";
-import Node from "./node";
-
+import Node from "../node/node";
 
 class ColouredLine extends Line {
     protected _colour = "#ffffff";

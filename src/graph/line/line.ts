@@ -1,4 +1,4 @@
-import Node from "./node";
+import Node from "../node/node";
 
 class Line {
     static LINE_WIDTH = 5;

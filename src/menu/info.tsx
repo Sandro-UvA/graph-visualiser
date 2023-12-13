@@ -1,12 +1,12 @@
 import { Setter } from "solid-js";
-import ColouredNode from "../graph/colouredNode";
-import Node from "../graph/node";
+import ColouredNode from "../graph/node/colouredNode";
+import Node from "../graph/node/node";
 import Mode from "../mode";
 import "./info.css";
-import Line from "../graph/line";
+import Line from "../graph/line/line";
 import Graph from "../graph/graph";
 import _ from "lodash";
-import ColouredLine from "../graph/colouredLine";
+import ColouredLine from "../graph/line/colouredLine";
 
 interface Props {
     mode: Mode;

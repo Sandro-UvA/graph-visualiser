@@ -1,8 +1,8 @@
 import { createSignal, onMount } from "solid-js";
 import "./App.css";
 import Graph from "./graph/graph";
-import Node from "./graph/node";
-import Line from "./graph/line";
+import Node from "./graph/node/node";
+import Line from "./graph/line/line";
 import GraphRenderer from "./graphRenderer";
 import Info from "./menu/info";
 import Mode from "./mode";

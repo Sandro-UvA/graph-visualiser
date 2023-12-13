@@ -1,9 +1,9 @@
 import Graph from "./graph/graph";
 import "./graph.css";
-import Node from "./graph/node";
-import ColouredNode from "./graph/colouredNode";
-import ColouredLine from "./graph/colouredLine";
-import Line from "./graph/line";
+import Node from "./graph/node/node";
+import ColouredNode from "./graph/node/colouredNode";
+import ColouredLine from "./graph/line/colouredLine";
+import Line from "./graph/line/line";
 
 interface Props {
     graph: Graph;

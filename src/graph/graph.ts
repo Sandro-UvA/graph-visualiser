@@ -1,5 +1,5 @@
-import Line from "./line";
-import Node from "./node";
+import Line from "./line/line";
+import Node from "./node/node";
 
 class Graph {
     nodes: Node[] = [];
