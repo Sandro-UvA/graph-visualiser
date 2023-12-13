@@ -4,6 +4,7 @@ import Node from "./graph/node/node";
 import ColouredNode from "./graph/node/colouredNode";
 import ColouredLine from "./graph/line/colouredLine";
 import Line from "./graph/line/line";
+import TextNode from "./graph/node/textNode";
 
 interface Props {
     graph: Graph;
@@ -40,10 +41,26 @@ function GraphRenderer(props: Props) {
         props.graph.nodes.forEach((node) => {
             context.beginPath();
             context.arc(node.x, node.y, Node.NODE_RADIUS, 0, 2 * Math.PI);
+
             if ((node as ColouredNode).colour)
                 context.fillStyle = (node as ColouredNode).colour;
             else context.fillStyle = "white";
+
             context.fill();
+
+            if ((node as TextNode).label) {
+                const label = (node as TextNode).label;
+                const text = context.measureText(label);
+
+                context.font = "24px sans-serif";
+                context.fillStyle = (node as TextNode).textColour;
+                context.textBaseline = "middle";
+                context.fillText(
+                    (node as TextNode).label,
+                    node.x - text.width / 2,
+                    node.y
+                );
+            }
         });
     }
 

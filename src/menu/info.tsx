@@ -7,6 +7,7 @@ import Line from "../graph/line/line";
 import Graph from "../graph/graph";
 import _ from "lodash";
 import ColouredLine from "../graph/line/colouredLine";
+import TextNode from "../graph/node/textNode";
 
 interface Props {
     mode: Mode;
@@ -70,6 +71,12 @@ function Info(props: Props) {
                 {props.nodeIndex !== null
                     ? props.nodes[props.nodeIndex].y
                     : "No info"}
+            </span>
+            <span>
+                label:{" "}
+                {props.nodeIndex !== null
+                    ? (props.nodes[props.nodeIndex] as TextNode).label
+                    : "No label"}
             </span>
             <span class="colour">
                 <input
