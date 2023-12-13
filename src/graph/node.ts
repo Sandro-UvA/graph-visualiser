@@ -1,5 +1,5 @@
 class Node {
-    private _x: number = 0;
+    protected _x: number = 0;
     get x() {
         return this._x;
     }
@@ -7,13 +7,15 @@ class Node {
         this._x = value;
     }
 
-    private _y: number = 0;
+    protected _y: number = 0;
     get y() {
         return this._y;
     }
     set y(value) {
         this._y = value;
     }
+
+    static NODE_RADIUS = 20;
 
     constructor(x: number, y: number) {
         this.x = x;

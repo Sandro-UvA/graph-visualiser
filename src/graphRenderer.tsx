@@ -1,58 +1,62 @@
 import Graph from "./graph/graph";
 import "./graph.css";
+import Node from "./graph/node";
+import ColouredNode from "./graph/colouredNode";
+import ColouredLine from "./graph/colouredLine";
+import Line from "./graph/line";
 
 interface Props {
     graph: Graph;
+    ref: (el: HTMLCanvasElement) => void;
+    canvas: HTMLCanvasElement | undefined;
 }
-
 function GraphRenderer(props: Props) {
-    console.log("RENDERING NEW GRAPH");
+    function draw() {
+        requestAnimationFrame(draw);
+
+        if (props.graph.nodes === null) return;
+        if (props.graph.lines === null) return;
+
+        if (props.canvas === undefined) return;
+
+        const context = props.canvas.getContext("2d");
+
+        if (context == null) return;
+
+        context.clearRect(0, 0, props.canvas.width, props.canvas.height);
+
+        props.graph.lines.forEach((line) => {
+            if (line.start === null || line.end === null) return;
+            context.beginPath();
+            context.moveTo(line.start.x + 0.5, line.start.y + 0.5);
+            context.lineTo(line.end.x + 0.5, line.end.y + 0.5);
+            if ((line as ColouredLine).colour)
+                context.strokeStyle = (line as ColouredLine).colour;
+            else context.strokeStyle = "white";
+            context.lineWidth = Line.LINE_WIDTH;
+            context.stroke();
+        });
+
+        props.graph.nodes.forEach((node) => {
+            context.beginPath();
+            context.arc(node.x, node.y, Node.NODE_RADIUS, 0, 2 * Math.PI);
+            if ((node as ColouredNode).colour)
+                context.fillStyle = (node as ColouredNode).colour;
+            else context.fillStyle = "white";
+            context.fill();
+        });
+    }
+
+    requestAnimationFrame(draw);
 
     return (
         <div class="graph-container">
-            {props.graph.lines?.map((line) => {
-                if (line == null) return;
-                const deltaX = line.start!.x - line.end!.x;
-                const deltaY = line.start!.y - line.end!.y;
-                const distance = Math.sqrt(
-                    Math.pow(deltaX, 2) + Math.pow(deltaY, 2)
-                );
-                const angle = Math.atan(deltaY / deltaX) * (180 / Math.PI);
-                const originNode = deltaY >= 0 ? line.end! : line.start!;
-                const origin =
-                    originNode.x === Math.max(line.start!.x, line.end!.x)
-                        ? originNode.y === Math.max(line.start!.y, line.end!.y)
-                            ? "left"
-                            : "right"
-                        : "left";
-                return (
-                    <div
-                        class="line"
-                        style={{
-                            left: `${
-                                Math.min(line.start!.x, line.end!.x) -
-                                (origin === "right"
-                                    ? deltaX >= 0
-                                        ? distance - deltaX
-                                        : distance + deltaX
-                                    : 0)
-                            }px`,
-                            top: `${Math.min(line.start!.y, line.end!.y)}px`,
-                            width: `${distance}px`,
-                            rotate: `${angle}deg`,
-                            "transform-origin": origin,
-                        }}
-                    />
-                );
-            })}
-            {props.graph.nodes?.map((node) => {
-                return (
-                    <div
-                        class="node"
-                        style={{ left: `${node.x}px`, top: `${node.y}px` }}
-                    />
-                );
-            })}
+            <canvas
+                ref={props.ref}
+                class="graph-canvas"
+                width={1470}
+                height={840}
+            />
         </div>
     );
 }

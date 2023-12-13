@@ -1,19 +1,5 @@
-.graph-container {
-    position: relative;
-}
-
-.node {
-    aspect-ratio: 1;
+.graph-canvas {
     position: absolute;
-    width: 10px;
-    background-color: white;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.line {
-    height: 1px;
-    background-color: #ddd;
-    position: absolute;
-    /* transform-origin: left; */
+    width: 1470px;
+    height: 840px;
 }
