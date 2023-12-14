@@ -1,3 +1,4 @@
+import ColouredLine from "./line/colouredLine";
 import Line from "./line/line";
 import Node from "./node/node";
 
@@ -50,7 +51,7 @@ class Graph {
                         node.y ===
                             (this.lines[j].start.y + this.lines[j].end.y) / 2
                 );
-                const newLine = new Line(node1!, node2!);
+                const newLine = new ColouredLine(node1!, node2!, "#ff0000");
 
                 if (
                     newLines.filter((line) => Line.areEqual(newLine, line))

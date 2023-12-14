@@ -7,6 +7,7 @@ import GraphRenderer from "./graphRenderer";
 import Info from "./menu/info";
 import Mode from "./mode";
 import _ from "lodash";
+import ColouredLine from "./graph/line/colouredLine";
 
 function App() {
     const [canvas, setCanvas] = createSignal<HTMLCanvasElement | undefined>();
@@ -115,7 +116,11 @@ function App() {
                     return acc;
                 });
 
-                const newLine = new Line(lineStart, closestNode);
+                const newLine = new ColouredLine(
+                    lineStart,
+                    closestNode,
+                    "#ff0000"
+                );
 
                 if (
                     nodeToNodeSquared(lineEnd, closestNode) <
@@ -234,14 +239,16 @@ function App() {
         const slope = (line.start.y - line.end.y) / (line.start.x - line.end.x);
         // Vertical line
         if (Number.isFinite(slope) === false) {
+            console.log("VERTICAL LINE");
+
             return (
                 Math.min(line.start.y, line.end.y) <= y &&
                 y <= Math.max(line.start.y, line.end.y) &&
-                line.start.x - x < Line.LINE_WIDTH
+                2 * Math.abs(line.start.x - x) <= Line.LINE_WIDTH
             );
         }
         const yAxisIntersect = line.start.y - slope * line.start.x;
-        return 2 * Math.abs(slope * x + yAxisIntersect - y) < Line.LINE_WIDTH;
+        return 2 * Math.abs(slope * x + yAxisIntersect - y) <= Line.LINE_WIDTH;
     }
 
     function nodeToNodeSquared(node1: Node, node2: Node) {

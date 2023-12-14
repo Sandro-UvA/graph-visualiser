@@ -15,7 +15,7 @@ class Node {
         this._y = value;
     }
 
-    static NODE_RADIUS = 20;
+    static NODE_RADIUS = 10;
 
     constructor(x: number, y: number) {
         this.x = x;
