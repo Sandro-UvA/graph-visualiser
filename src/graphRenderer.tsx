@@ -8,7 +8,7 @@ import TextNode from "./graph/node/textNode";
 
 interface Props {
     graph: Graph;
-    ref: (el: HTMLCanvasElement) => void;
+    ref: () => HTMLCanvasElement | undefined;
     canvas: HTMLCanvasElement | undefined;
 }
 function GraphRenderer(props: Props) {
@@ -66,13 +66,27 @@ function GraphRenderer(props: Props) {
 
     requestAnimationFrame(draw);
 
+    window.addEventListener("resize", resize);
+
+    function resize() {
+        if (props.canvas === undefined) return;
+        props.canvas.width = window.innerWidth;
+        props.canvas.height = window.innerHeight;
+        props.canvas.style.width = window.innerWidth.toString();
+        props.canvas.style.height = window.innerHeight.toString();
+    }
+
     return (
         <div class="graph-container">
             <canvas
                 ref={props.ref}
                 class="graph-canvas"
-                width={1470}
-                height={840}
+                width={window.innerWidth}
+                height={window.innerHeight}
+                style={{
+                    width: window.innerWidth.toString(),
+                    height: window.innerHeight.toString(),
+                }}
             />
         </div>
     );
